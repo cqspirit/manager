@@ -1,0 +1,21 @@
+ls_blogs				test_blogs
+ls_entity				test_entity
+ls_facebook_posts		test_facebook_posts
+ls_facebook_users		test_facebook_users
+ls_hardwarezone_posts	test_hardwarezone_posts
+ls_index				test_index
+ls_influence			test_influence
+ls_note_analysis		test_note_analysis
+ls_note_rank			test_note_rank
+ls_note_statistic		test_note_statistic
+ls_tencent_tweets		test_tencent_tweets
+ls_tencent_users		test_tencent_users
+ls_times				test_times
+ls_topics				test_topics
+ls_topics_notes			test_topics_notes
+ls_trending				test_trending
+ls_twitter_tweets		test_twitter_tweets
+ls_twitter_users		test_twitter_users
+ls_user_note			test_user_note
+ls_words				test_words
+
