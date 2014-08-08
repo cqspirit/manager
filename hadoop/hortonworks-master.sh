@@ -109,7 +109,10 @@ echo '172.18.109.30   next-20
 172.18.109.107  next-97
 172.18.109.108  next-98
 172.18.109.109  next-99' >>/etc/hosts
-#9.get latest ambari.repo and install 
+#9.option linux kernel config
+sysctl -w vm.swappiness=0
+echo "vm.swappiness = 0" >> /etc/sysctl.conf
+#10.get latest ambari.repo and install 
 wget http://public-repo-1.hortonworks.com/ambari/centos6/1.x/updates/1.6.0/ambari.repo
 cp ambari.repo /etc/yum.repos.d
 yum repolist
