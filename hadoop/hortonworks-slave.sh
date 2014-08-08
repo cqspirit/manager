@@ -1,6 +1,8 @@
+#!/bin/bash
+#add by geyong Aug 8 2014
 #1.install dependies
 yum install -y openssl-devel openssh-clients
-yum install -y rsync lrzsz vim wget
+yum install -y rsync lrzsz vim wget curl
 #2.rsync time when virtual machine start
 touch /etc/rc.d/init.d/timesync
 echo '#!/bin/bash
