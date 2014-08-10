@@ -27,6 +27,8 @@ echo '
 #6.disable iptables
 /etc/init.d/iptables stop
 chkconfig iptables off
+/etc/init.d/ip6tables stop
+chkconfig ip6tables off
 #7.time sync
 yum install ntp ntpdate -y && ntpdate pool.ntp.org && service ntpd start && chkconfig ntpd on
 #8.hosts
