@@ -117,5 +117,7 @@ echo '172.18.109.30 next-20
 #9.option linux kernel config
 sysctl -w vm.swappiness=0
 echo "vm.swappiness = 0" >> /etc/sysctl.conf
-#10.reboot
+#10.refine system data dir noatime
+#/dev/mapper/vg_next45-lv_public /public                 ext4    defaults,noatime 
+#11.reboot
 reboot
