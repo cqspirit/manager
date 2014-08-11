@@ -1,3 +1,4 @@
+#!/bin/bash
 #add by geyong Aug 11 2014
 #description: check regionserver status,if it is down,restart it
 
