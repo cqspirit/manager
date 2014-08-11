@@ -1,4 +1,3 @@
-#!/bin/bash
 #add by geyong Aug 11 2014
 #description: check regionserver status,if it is down,restart it
 
@@ -19,11 +18,11 @@ if [[ "$ret" -ge "1" ]]; then
      echo "[$(date +%Y%m%d-%H:%M)]:OK!  RegionServer is running!">>$logfile
 else
      echo "[$(date +%Y%m%d-%H:%M)]:CRITICAL!! RegionServer is down!">>$logfile
-     echo "start RegionServer...">>$logfile
+     echo "[$(date +%Y%m%d-%H:%M)]:start RegionServer........">>$logfile
      su - hbase -c "/usr/lib/hbase/bin/hbase-daemon.sh --config /etc/hbase/conf start regionserver"
      if [[ "$?" -ne "1" ]]; then
-        echo "[$(date +%Y%m%d-%H:%M)]:start RegionServer successed...">>$logfile
+        echo "[$(date +%Y%m%d-%H:%M)]:start RegionServer successed!!">>$logfile
      else
-        echo "[$(date +%Y%m%d-%H:%M)]:start RegionServer failed...">>$logfile
+        echo "[$(date +%Y%m%d-%H:%M)]:start RegionServer failed!!!">>$logfile
      fi
 fi
