@@ -16,14 +16,14 @@ GREP="/bin/grep"
 ret=`$PS auxwwwf |$GREP java|$GREP HRegionServer|wc -l `
 
 if [[ "$ret" -ge "1" ]]; then
-     echo "[$(date +%Y%m%d-%H%M)]:OK  RegionServer is running!">>$logfile
+     echo "[$(date +%Y%m%d-%H:%M)]:OK!  RegionServer is running!">>$logfile
 else
-     echo "[$(date +%Y%m%d-%H%M)]:CRITICAL!! RegionServer is down!">>$logfile
-     echo "start RegionServer..."
+     echo "[$(date +%Y%m%d-%H:%M)]:CRITICAL!! RegionServer is down!">>$logfile
+     echo "start RegionServer...">>$logfile
      su - hbase -c "/usr/lib/hbase/bin/hbase-daemon.sh --config /etc/hbase/conf start regionserver"
      if [[ "$?" -ne "1" ]]; then
-        echo "start RegionServer successed..."
+        echo "[$(date +%Y%m%d-%H:%M)]:start RegionServer successed...">>$logfile
      else
-        echo "start RegionServer failed..."
+        echo "[$(date +%Y%m%d-%H:%M)]:start RegionServer failed...">>$logfile
      fi
 fi
