@@ -17,8 +17,8 @@ BOOTPROTO=none
 ONBOOT=yes 
 DELAY=0 
 NM_CONTROLLED=yes
-IPADDR=172.18.109.11
-GATEWAY=172.18.109.1
+IPADDR=172.18.109.xx
+GATEWAY=172.18.109.x
 DNS1=8.8.8.8
 DNS2=8.8.4.4'>/etc/sysconfig/network-scripts/ifcfg-br1
 
