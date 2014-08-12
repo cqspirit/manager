@@ -1,6 +1,6 @@
 #!/bin/sh
 # by geyong may 8 2013
-# install xen 
+# install xen based on fedora17
 #1.安装软件vim
 yum -y install vim
 #2.屏蔽selinux
