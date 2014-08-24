@@ -97,7 +97,7 @@ pip install -r requirement.txt
 
 cd $BASE_DIR
 # Setup Agent
-git clone https://github.com/xxr3376/Distribute-Crawler-Agent $AGENT_DIR
+git clone https://github.com/cqspirit/Distribute-Crawler-Agent $AGENT_DIR
 curl https://raw.githubusercontent.com/cqspirit/manager/master/crawler/const.py > $AGENT_DIR/const.py
 
 chown -R dc-agent:dc-agent $AGENT_DIR
