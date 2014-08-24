@@ -41,7 +41,7 @@ files=/etc/supervisord.d/*.conf
 [inet_http_server]
 port=127.0.0.1:9001
 EOF
-curl https://gist.githubusercontent.com/xxr3376/1232005dcb78aac0c618/raw/b527c26c03af7039dd004b967a62fc27630e4f94/supervisord.sh > /etc/rc.d/init.d/supervisord
+curl https://raw.githubusercontent.com/cqspirit/manager/master/crawler/supervisord.sh > /etc/rc.d/init.d/supervisord
 
 chmod +x /etc/rc.d/init.d/supervisord
 chkconfig --add supervisord
