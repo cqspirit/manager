@@ -9,7 +9,7 @@ yum groupinstall -y development
 yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel wget
 yum install xz-libs -y
 
-wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz
+wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz -o Python-2.7.6.tar.xz
 xz -d Python-2.7.6.tar.xz
 tar -xvf Python-2.7.6.tar
 cd Python-2.7.6
@@ -18,7 +18,7 @@ make && make install
 
 # Setup Setuptools
 cd /tmp
-wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz
+wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz -o setuptools-1.4.2.tar.gz
 tar -xvf setuptools-1.4.2.tar.gz
 cd setuptools-1.4.2
 python setup.py install
