@@ -5,9 +5,8 @@ PASSWORD='crawler@next'
 # Setup Python 2.7.6
 cd /tmp
 yum -y update
-yum groupinstall -y development 
-yum install -y wget
-yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel
+yum groupinstall -y development
+yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel wget
 yum install xz-libs -y
 
 wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz
