@@ -1,4 +1,4 @@
-SERVER_INFO='http://172.29.33.188:9001/cluster/server'
+SERVER_INFO='http://crawler.6estates.com:9001/cluster/server'
 
 import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
