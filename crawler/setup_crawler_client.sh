@@ -71,7 +71,7 @@ mkdir -p $BASE_DIR
 cd $BASE_DIR
 # Setup Manager
 git clone https://github.com/xxr3376/Distribute-Crawler-Manager $MANAGER_DIR
-curl https://gist.githubusercontent.com/xxr3376/452b57d05dae6fc8db9b/raw/073aa75c81e58360da491442e2776272f4c009a2/config.py > $MANAGER_DIR/config.py
+curl https://raw.githubusercontent.com/cqspirit/manager/master/crawler/config.py > $MANAGER_DIR/config.py
 
 chown -R dc-agent:dc-agent $MANAGER_DIR
 
@@ -98,7 +98,7 @@ pip install -r requirement.txt
 cd $BASE_DIR
 # Setup Agent
 git clone https://github.com/xxr3376/Distribute-Crawler-Agent $AGENT_DIR
-curl https://gist.githubusercontent.com/xxr3376/5efefe30b01aff86774b/raw/8cb61e2e71ec3c525352d2332034ea3f03339150/const.py > $AGENT_DIR/const.py
+curl https://raw.githubusercontent.com/cqspirit/manager/master/crawler/const.py > $AGENT_DIR/const.py
 
 chown -R dc-agent:dc-agent $AGENT_DIR
 
