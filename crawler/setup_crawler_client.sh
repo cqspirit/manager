@@ -70,7 +70,7 @@ mkdir -p $BASE_DIR
 
 cd $BASE_DIR
 # Setup Manager
-git clone https://github.com/xxr3376/Distribute-Crawler-Manager $MANAGER_DIR
+git clone https://github.com/cqspirit/Distribute-Crawler-Manager $MANAGER_DIR
 curl https://raw.githubusercontent.com/cqspirit/manager/master/crawler/config.py > $MANAGER_DIR/config.py
 
 chown -R dc-agent:dc-agent $MANAGER_DIR
