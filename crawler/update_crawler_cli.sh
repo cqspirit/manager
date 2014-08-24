@@ -1,8 +1,8 @@
 #Stop ALL
 supervisorctl stop all
 
-MANAGER_CONFIG=https://gist.githubusercontent.com/xxr3376/452b57d05dae6fc8db9b/raw/073aa75c81e58360da491442e2776272f4c009a2/config.py 
-AGENT_CONST=https://gist.githubusercontent.com/xxr3376/5efefe30b01aff86774b/raw/8cb61e2e71ec3c525352d2332034ea3f03339150/const.py
+MANAGER_CONFIG=https://raw.githubusercontent.com/cqspirit/manager/master/crawler/config.py 
+AGENT_CONST=https://raw.githubusercontent.com/cqspirit/manager/master/crawler/const.py
 
 
 BASE_DIR=/opt/crawl
