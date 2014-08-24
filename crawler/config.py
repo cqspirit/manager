@@ -1,7 +1,7 @@
 #!encoding=utf-8
 
-REGISTER_URL= 'http://172.29.33.188:9001/cluster/register'
-HEARTBEAT_URL= 'http://172.29.33.188:9001/cluster/heartbeat'
+REGISTER_URL= 'http://crawler.6estates.com:9001/cluster/register'
+HEARTBEAT_URL= 'http://crawler.6estates.com:9001/cluster/heartbeat'
 
 RPC_ADDRESS = 'http://localhost:9001/RPC2'
 
