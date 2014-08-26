@@ -1,4 +1,4 @@
-
+#!/bin/bash
 # setup users
 set +e
 useradd dc-agent -M -p $PASSWORD
