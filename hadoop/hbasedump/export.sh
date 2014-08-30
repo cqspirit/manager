@@ -2,7 +2,7 @@
 #by geyong jue 4 2012
 
 export oper=$1
-export logfile="./logs/modify-$oper-$(date +%Y%m%d-%H%M).log"
+export logfile="./logs/datamove-$oper-$(date +%Y%m%d-%H%M).log"
 
 function execute(){
   if  [ "$1"x = ""x ] ;
@@ -14,18 +14,18 @@ function execute(){
 }
 
 function dump(){
-  echo "*********************************************$(date +%Y%m%d-%H%M)************************************************************" 	>>$logfile
-  echo "start  $oper table:$1"  												   	>>$logfile
+  echo "*********************************************$(date +%Y%m%d-%H%M)************************************************************" 	|tee -a $logfile
+  echo "start  $oper table:$1"  												   	|tee -a $logfile
   if [ "$oper"x = "import"x ]; then
         tablename=$2
   else
         tablename=$1 
   fi
-  echo "command is:hbase org.apache.hadoop.hbase.mapreduce.Driver $oper $tablename /move/import/$1 " 				        >>$logfile
-  hbase org.apache.hadoop.hbase.mapreduce.Driver $oper $tablename /move/import/$1
-  echo "finish $oper table:$1" 														>>$logfile
-  echo "the result is $?"														>>$logfile
-  echo "*********************************************$(date +%Y%m%d-%H%M)************************************************************" 	>>$logfile
+  echo "command is:hbase org.apache.hadoop.hbase.mapreduce.Driver $oper $tablename /move/import/$1 " 				        |tee -a $logfile
+  nohup hbase org.apache.hadoop.hbase.mapreduce.Driver $oper $tablename /move/import/$1  |tee -a $logfile
+  echo "finish $oper table:$1" 														|tee -a $logfile
+  echo "the result is $?"														|tee -a $logfile
+  echo "*********************************************$(date +%Y%m%d-%H%M)************************************************************" |tee -a $logfile
 }
 
 export -f dump 
