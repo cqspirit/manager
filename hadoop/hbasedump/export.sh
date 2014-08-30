@@ -22,7 +22,7 @@ function dump(){
         tablename=$1 
   fi
   echo "command is:hbase org.apache.hadoop.hbase.mapreduce.Driver $oper $tablename /move/import/$1 " 				        |tee -a $logfile
-  nohup hbase org.apache.hadoop.hbase.mapreduce.Driver $oper $tablename /move/import/$1  |tee -a $logfile
+  nohup su - hdfs "hbase org.apache.hadoop.hbase.mapreduce.Driver $oper $tablename /move/import/$1 "  |tee -a $logfile
   echo "finish $oper table:$1" 														|tee -a $logfile
   echo "the result is $?"														|tee -a $logfile
   echo "*********************************************$(date +%Y%m%d-%H%M)************************************************************" |tee -a $logfile
