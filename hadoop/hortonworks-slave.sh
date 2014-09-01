@@ -12,9 +12,9 @@ echo '#!/bin/bash
 chmod u+x /etc/rc.d/init.d/timesync
 ln -s /etc/rc.d/init.d/timesync /etc/rc3.d/S90timesync
 #3.disable selinux
-sed -e 's:SELINUX=enforcing:SELINUX=disabled:g' /etc/sysconfig/selinux
-sed -i 's:SELINUX=enforcing:SELINUX=disabled:g' /etc/sysconfig/selinux
-sed -i 's:SELINUX=enforcing:SELINUX=disabled:g' /etc/selinux/config
+sed -i 's:SELINUX=enforcing:SELINUX=disabled:g'  /etc/selinux/config
+setenforce 0
+getenforce
 #4.config ssh
 sed -i 's/#RSAAuthentication yes/RSAAuthentication yes/g' /etc/ssh/sshd_config
 sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
