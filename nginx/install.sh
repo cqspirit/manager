@@ -1,5 +1,6 @@
 #!/bin/bash 
 #install nginx add By geyong 1 Sep 2014
+INSTALL_PATH=/usr/local
 #模块依赖性
 yum -y install gcc gcc-c++ autoconf automake
 #gzip模块需要zlib库
@@ -12,6 +13,6 @@ cd /opt/soft
 wget http://nginx.org/download/nginx-1.6.1.tar.gz
 tar zxvf nginx-1.6.1.tar.gz
 cd nginx-1.6.1
-./configure
+./configure --prefix=$INSTALL_PATH
 make
 make install
