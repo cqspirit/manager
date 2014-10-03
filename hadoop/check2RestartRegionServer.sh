@@ -1,6 +1,10 @@
+#!/bin/sh
+#by geyong jue 4 2012
+cat >> /usr/bin/check2RestartRS.sh << -EOF
 #!/bin/bash
 #add by geyong Aug 11 2014
 #description: check regionserver status,if it is down,restart it
+
 
 export logfile="/var/log/regionserver-status-$(date +%Y%m%d).log"
 
@@ -27,3 +31,7 @@ else
         echo "[$(date +%Y-%m-%d' '%H:%M)]:start RegionServer failed!!!">>$logfile
      fi
 fi
+EOF
+chmod u+x /usr/bin/check2RestartRS.sh
+echo '* * * * * root /usr/bin/check2RestartRS.sh'>/etc/crontab
+/sbin/service crond restart 
