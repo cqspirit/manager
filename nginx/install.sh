@@ -12,7 +12,7 @@ INSTALL_PATH='/usr/local'
 SBIN_PATH='/usr/local/bin'
 mkdir -p $CONF_PATH
 #3.install dependences
-yum -y install gcc gcc-c++ autoconf automake
+yum -y install gcc gcc-c++ autoconf automake wget
 #gzip needs zlib  rewrite needs pcre ssl needs openssl
 yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel libevent
 #get latest nginx version
