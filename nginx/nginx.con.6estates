@@ -1,0 +1,619 @@
+#user  nobody;
+#user  www www;
+worker_processes  10;
+
+error_log  logs/error.log info;
+worker_rlimit_nofile 51200;
+
+events {
+    use epoll;
+    worker_connections  51200;
+}
+
+
+http {
+	include       mime.types;
+	default_type  application/octet-stream;
+
+#	charset  utf-8;
+      
+  	server_names_hash_bucket_size 128;
+  	client_header_buffer_size 32k;
+  	large_client_header_buffers 4 32k;
+  	client_max_body_size 300m;
+      
+  	sendfile on;
+ # 	tcp_nopush     on;
+
+  	keepalive_timeout 60;
+
+  	tcp_nodelay on;
+
+  	client_body_buffer_size  512k;
+  	proxy_connect_timeout    600;
+  	proxy_read_timeout       600;
+  	proxy_send_timeout       600;
+ 	proxy_buffer_size        16k;
+  	proxy_buffers            4 64k;
+  	proxy_busy_buffers_size 128k;
+  	proxy_temp_file_write_size 128k;
+
+  	gzip on;
+  	gzip_min_length  1k;
+  	gzip_buffers     4 16k;
+  	gzip_http_version 1.1;
+  	gzip_comp_level 2;
+  	gzip_types       text/plain application/x-javascript text/css application/xml;
+  	gzip_vary on;
+
+        underscores_in_headers on;
+  	#proxy_temp_path   /usr/local/nginx/proxy_temp_dir;
+  	#proxy_cache_path  /usr/local/nginx/proxy_cache_dir  levels=1:2   keys_zone=cache_one:200m inactive=1d max_size=30g;
+    	
+	#request limit
+	limit_req_zone $binary_remote_addr zone=allips:10m rate=50r/s; 
+    #map $http_upgrade $connection_upgrade {
+    #    default upgrade;
+    #    ''      close;
+    #}    
+    #include upsteam_crawler.conf;
+
+    upstream  live {
+        ip_hash;
+        server   172.18.109.32:8080  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  nextcenter {
+        ip_hash;
+        server   137.132.145.151:90  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  nus {
+        ip_hash;
+        server   172.18.109.37:8083  weight=1 max_fails=2 fail_timeout=30s;
+    }
+	upstream  deeplearn {
+        ip_hash;
+        server   172.18.109.32:8083  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  deeplearn-pic {
+        ip_hash;
+        server   172.29.33.31:8000  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  future {
+        ip_hash;
+        server   172.18.109.32:8081  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  security {
+        ip_hash;
+        server   172.18.109.32:8082  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  media {
+        ip_hash;
+        server   172.18.109.37:8080  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  review {
+        ip_hash;
+        server   172.18.109.37:8081  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  people {
+        ip_hash;
+        server   172.18.109.37:8182  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  report {
+        ip_hash;
+        server   172.18.109.57:8080  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  admin {
+        ip_hash;
+        server   172.18.109.57:8081  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  explore {
+        ip_hash;
+        server   172.18.109.57:8082  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  next-api {
+        ip_hash;
+        server   172.18.109.57:8083   weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  picrewrite {
+        ip_hash;
+        server   172.18.109.57:80    weight=1 max_fails=2 fail_timeout=30s;
+        server   172.18.109.59:80   weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  user {
+        ip_hash;
+        server   172.18.109.70:8080  weight=1 max_fails=2 fail_timeout=30s;
+    }
+    upstream  dnsserver {
+        ip_hash;
+        server   172.18.109.51:53  weight=1 max_fails=2 fail_timeout=30s;
+    }
+   upstream  users {
+        ip_hash;
+        server   172.29.34.116:8081  weight=1 max_fails=2 fail_timeout=30s;
+   }
+   upstream  hotsenze {
+         ip_hash;
+         server   172.18.109.70:8081  weight=1 max_fails=2 fail_timeout=30s;
+   }
+   upstream  hotsenze-new {
+         ip_hash;
+         server   172.18.109.70:8082  weight=1 max_fails=2 fail_timeout=30s;
+   }
+   upstream  mvn-repos {
+         ip_hash;
+         server   172.29.34.116:9000  weight=1 max_fails=2 fail_timeout=30s;
+   }
+   upstream  tv {
+         ip_hash;
+         server   172.18.109.70:8083  weight=1 max_fails=2 fail_timeout=30s;
+   }
+   upstream  dev {
+         ip_hash;
+         server   172.18.109.104:80  weight=1 max_fails=2 fail_timeout=30s;
+   }
+   upstream  crawler {
+        ip_hash;
+        #server   172.18.109.33:9001  weight=1 max_fails=2 fail_timeout=30s;
+	#server   172.18.109.34:9001  weight=1 max_fails=2 fail_timeout=30s;
+	#server   172.18.109.38:9001  weight=1 max_fails=2 fail_timeout=30s;
+	#server   172.18.109.39:9001  weight=1 max_fails=2 fail_timeout=30s;
+	#server   172.18.109.43:9001  weight=1 max_fails=2 fail_timeout=30s;
+	server   172.18.109.44:9001  weight=1 max_fails=2 fail_timeout=30s;
+	#server   172.18.109.48:9001  weight=1 max_fails=2 fail_timeout=30s;
+	server   172.18.109.49:9001  weight=1 max_fails=2 fail_timeout=30s;
+	server   172.18.109.54:9001  weight=1 max_fails=2 fail_timeout=30s;
+    }
+   server
+   {
+    listen       80;
+    server_name  6estates.com www.6estates.com;
+    index index.html index.htm;
+    root  /usr/local/nginx/html/6estates;  
+    location /
+    {
+        root   /usr/local/nginx/html/6estates;
+        index  index.html index.htm;
+    } 
+   
+    location /futuresenze/
+    {
+         #proxy_next_upstream http_502 http_404 http_504 error timeout invalid_header;
+         #proxy_cache cache_one;
+         #proxy_cache_valid  200 304 12h;
+         #proxy_cache_key $host$uri$is_args$args;
+         proxy_pass http://future;
+         proxy_set_header Host  $host;
+         proxy_set_header X-Forwarded-For  $remote_addr;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+         #expires      1d;
+    }
+    location /next-api-web-bak/
+    {
+         proxy_set_header        Host $host;
+         proxy_set_header        X-Forwarded-For  $remote_addr;
+         proxy_pass http://next-api/;
+         proxy_http_version 1.1;
+         #proxy_set_header Upgrade $http_upgrade;
+         #proxy_set_header Connection "Upgrade";
+    }
+    location /next-api-web/ {
+         proxy_pass      http://172.18.109.57:8083/;
+         proxy_redirect  off;
+         proxy_set_header        Host    $host;
+         proxy_set_header        X-Read-IP       $remote_addr;
+         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+ 
+         #proxy_set_header        Host $host;
+         #proxy_set_header        X-Forwarded-For  $remote_addr;
+         #proxy_pass http://172.18.109.57:8083/next-api-web/;
+         #proxy_pass    http://172.18.109.57:8083/next-api-web/;
+         #proxy_redirect default ;
+    }
+    #location /livesenze-new/
+    #{
+    #     proxy_pass http://livesenze-new;
+    #     proxy_http_version 1.1;
+    #     proxy_set_header Upgrade $http_upgrade;
+    #     proxy_set_header Connection "Upgrade";
+    #}
+
+    location /hotsenze/
+    {
+         proxy_pass http://hotsenze;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+
+
+    location /report/
+    {
+         proxy_pass http://report;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+
+    location /explore/
+    {
+         proxy_pass http://explore;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+    location /hotsenze-new/
+    {
+         proxy_pass http://hotsenze-new;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+
+    location /reviewsenze/
+    {
+         proxy_pass http://review;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+    location /mediasenze/
+    {
+         proxy_pass http://media;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+    location /securitysenze/
+    {
+         proxy_pass http://security;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+    location /livesenze/
+    {
+         #proxy_next_upstream http_502 http_404 http_504 error timeout invalid_header;
+         #proxy_cache cache_one;
+         #proxy_cache_valid  200 304 12h;
+         #proxy_cache_key $host$uri$is_args$args;
+         proxy_set_header Host  $host;
+         proxy_set_header X-Forwarded-For  $remote_addr;
+         proxy_pass http://live;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+         #expires      1d;
+    }
+    location /users/
+    {
+         proxy_pass http://user;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+    location /admin/
+    {
+         proxy_pass http://admin;
+         proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "Upgrade";
+    }
+    location /people/
+    {
+          proxy_pass http://people;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "Upgrade";
+     }
+    #location /admin-old/
+    #{
+    #     proxy_pass http://admin-old;
+    #     proxy_http_version 1.1;
+    #     proxy_set_header Upgrade $http_upgrade;
+    #     proxy_set_header Connection "Upgrade";
+    #}
+    #location ~ /purge(/.*)
+    #{
+     #allow            127.0.0.1;
+     #allow            192.168.0.0/16;
+     #deny            all;
+     #proxy_cache_purge    cache_one   $host$1$is_args$args;
+    #}    
+     location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|js|css|html)$  
+     {  
+            expires      30d;  
+     }  
+    #location ~ .*\.(php|cgi)?$
+    #{
+    #     proxy_set_header Host  $host;
+    #     proxy_set_header X-Forwarded-For  $remote_addr;
+    #     proxy_pass http://futuresenze;
+    #}
+
+    access_log  on;
+  }
+    #gzip  on;
+    server {
+        listen          8088;
+        server_name     picrewrite;
+        location / {
+           #expires 15d;
+           #proxy_store on;
+           #proxy_store_access user:rw group:rw all:rw;
+           #proxy_redirect          off;
+           proxy_set_header        Host $host;
+           proxy_set_header        X-Forwarded-For  $remote_addr;
+           #proxy_set_header        X-Real-IP 172.18.109.57;
+           #proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+           #client_max_body_size    10m;
+           #client_body_buffer_size 1280k;
+           #proxy_connect_timeout   900;
+           #proxy_send_timeout      900;
+           #proxy_read_timeout      900;
+           #proxy_buffer_size       40k;
+           #proxy_buffers           40 320k;
+           #proxy_busy_buffers_size 640k;
+           #proxy_temp_file_write_size 640k;
+           proxy_pass  http://picrewrite;
+        }
+   }
+   server {
+          listen          6888;
+          server_name     mvn-repos;
+          location / {
+            proxy_set_header        Host $host;
+            proxy_set_header        X-Forwarded-For  $remote_addr;
+            proxy_pass  http://mvn-repos;
+         }
+    }
+    server {           
+ 	   listen          6886;
+           server_name     next-api-web;
+           location / {
+             proxy_set_header        Host $host;
+             proxy_set_header        X-Forwarded-For  $remote_addr;
+             proxy_pass  http://172.18.109.57:8083/next-api-web/;
+          }
+    }
+   server {
+        listen          80;
+        server_name     live.6estates.com;
+	location /
+    	{
+         	proxy_pass http://live;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+         	proxy_http_version 1.1;
+         	proxy_set_header Upgrade $http_upgrade;
+         	proxy_set_header Connection "Upgrade";
+    	}
+   }
+   server {
+        listen          80;
+        server_name     live.nextcenter.org;
+        location /
+        {
+                proxy_pass http://nus;
+                proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+   }
+   server {
+        listen          80;
+        server_name     future.6estates.com;
+        location /
+        {
+                proxy_pass http://future;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+   }
+   server {
+        listen          80;
+        server_name     security.6estates.com;
+        location /
+        {
+                proxy_pass http://security;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+		limit_req zone=allips burst=5 nodelay;
+        }
+   }
+   server {
+        listen          80;
+        server_name     media.6estates.com;
+        location /
+        {
+                proxy_pass http://media;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+   }
+   server {
+        listen          80;
+        server_name     review.6estates.com;
+        location /
+        {
+                proxy_pass http://review;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+   }
+   server {
+        listen          80;
+        server_name     report.6estates.com report.nextcenter.org; 
+        location /
+        {
+                proxy_pass http://report;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+   }
+   server{
+        listen 80;
+        server_name deeplearning.6estates.com;
+        location /
+        {
+                proxy_pass http://deeplearn;
+                proxy_set_header X-Forwarded-For $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+    }
+    server{
+        listen 80;
+        server_name dpic.6estates.com;
+        location /
+        {
+                proxy_pass http://deeplearn-pic;
+                proxy_set_header X-Forwarded-For $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+    }
+   server {
+        listen          80;
+        server_name     admin.6estates.com;
+        location /
+        {
+                proxy_pass http://admin;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+   }
+   server {
+         listen          80;
+         server_name     explore.6estates.com;
+         location /
+         {
+                 proxy_pass http://explore;
+		 proxy_set_header X-Forwarded-For  $remote_addr;
+                 proxy_http_version 1.1;
+                 proxy_set_header Upgrade $http_upgrade;
+                 proxy_set_header Connection "Upgrade";
+         }
+    } 
+   server {
+         listen          80;
+         server_name     people.6estates.com;
+         location /
+         {
+                 proxy_pass http://people;
+		 proxy_set_header X-Forwarded-For  $remote_addr;
+                 proxy_http_version 1.1;
+                 proxy_set_header Upgrade $http_upgrade;
+                 proxy_set_header Connection "Upgrade";
+         }
+    }
+    server {
+         listen          80;
+         server_name     users.6estates.com users.nextcenter.org;
+         location /
+         {
+                proxy_pass http://user;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+         }
+     }
+     server {
+         listen          80;
+         server_name     api.6estates.com;
+         location /
+         {
+               proxy_pass http://next-api;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+               proxy_http_version 1.1;
+               proxy_set_header Upgrade $http_upgrade;
+               proxy_set_header Connection "Upgrade";
+         }
+     }
+     server {
+          listen          80;
+          server_name     tv.6estates.com;
+          location /
+          {
+                proxy_pass http://tv;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+          }
+      }
+     server {
+          listen          9001;
+          server_name     crawler.6estates.com;
+          location /
+          {
+                proxy_pass http://crawler;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+          }
+      }
+      server {
+          listen          80;
+          server_name     repos.6estates.com;
+          location /
+          {
+                proxy_pass http://mvn-repos;
+                proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+          }
+      }
+      server {
+          listen          80;
+          server_name     137.132.145.151 www.nextcenter.org nextcenter.org;
+          location /
+          {
+                proxy_pass http://nextcenter;
+                proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+          }
+      }
+     server {
+          listen          80;
+          server_name     dns.6estates.com;
+          location /
+          {
+                proxy_pass http://dnsserver;
+                proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+          }
+      }
+      server {
+          listen          80;
+          server_name     dev.6estates.com;
+          location / {
+            proxy_set_header        Host $host;
+            proxy_set_header        X-Forwarded-For  $remote_addr;
+            proxy_pass  http://dev;
+         }
+     }
+}
+
