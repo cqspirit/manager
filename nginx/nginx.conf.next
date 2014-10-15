@@ -1,35 +1,26 @@
 
 user  nextnginx;
 worker_processes  10;
-
 #error_log  logs/error.log;
 #error_log  logs/error.log  notice;
 #pid        logs/nginx.pid;
 error_log  logs/error.log info;
 worker_rlimit_nofile 51200;
-
 events {
     use epoll;
     worker_connections  10240;
 }
-
-
 http {
     include       mime.types;
     default_type  application/octet-stream;
-
     #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
     #                  '$status $body_bytes_sent "$http_referer" '
     #                  '"$http_user_agent" "$http_x_forwarded_for"';
-
     #access_log  logs/access.log  main;
-
     sendfile        on;
     #tcp_nopush     on;
-
     #keepalive_timeout  0;
     keepalive_timeout  65;
-
     #gzip  on;
     upstream  nuslive {
          ip_hash;
@@ -55,7 +46,6 @@ http {
          ip_hash;
          server   172.29.34.166:8080  weight=1 max_fails=2 fail_timeout=30s;
     }
-
     server {
           listen          80;
           server_name     api.nextcenter.org;
@@ -161,7 +151,6 @@ http {
         location = /50x.html {
             root   html;
         }
-
         # proxy the PHP scripts to Apache listening on 127.0.0.1:80
         #
         #location ~ \.php$ {
