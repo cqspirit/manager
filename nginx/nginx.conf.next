@@ -68,7 +68,30 @@ http {
                 proxy_set_header Connection "Upgrade";
           }
       }
-
+    server {
+         listen          80;
+         server_name     users.nextcenter.org;
+         location /
+         {
+                proxy_pass http://user;
+		        proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+         }
+     }
+      server {
+        listen          80;
+        server_name     report.nextcenter.org; 
+        location /
+        {
+                proxy_pass http://report;
+		proxy_set_header X-Forwarded-For  $remote_addr;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+   }
     server {
           listen          80;
           server_name     live.nextcenter.org;
@@ -198,5 +221,30 @@ http {
     #        index  index.html index.htm;
     #    }
     #}
+    
+    server {
+        listen          8088;
+        server_name     picrewrite;
+        location / {
+           #expires 15d;
+           #proxy_store on;
+           #proxy_store_access user:rw group:rw all:rw;
+           #proxy_redirect          off;
+           proxy_set_header        Host $host;
+           proxy_set_header        X-Forwarded-For  $remote_addr;
+           #proxy_set_header        X-Real-IP 172.18.109.57;
+           #proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+           #client_max_body_size    10m;
+           #client_body_buffer_size 1280k;
+           #proxy_connect_timeout   900;
+           #proxy_send_timeout      900;
+           #proxy_read_timeout      900;
+           #proxy_buffer_size       40k;
+           #proxy_buffers           40 320k;
+           #proxy_busy_buffers_size 640k;
+           #proxy_temp_file_write_size 640k;
+           proxy_pass  http://picrewrite;
+        }
+   }
 
 }
