@@ -1,5 +1,4 @@
-#user  nobody;
-#user  www www;
+user  senginx senignx;
 worker_processes  10;
 
 error_log  logs/error.log info;
