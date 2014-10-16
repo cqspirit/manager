@@ -234,7 +234,7 @@ http {
     }
     location /users/
     {
-         proxy_pass http://user;
+         proxy_pass http://users;
          include seproxy.conf;
     }
     location /admin/
@@ -413,7 +413,7 @@ http {
          server_name     users.6estates.com users.nextcenter.org;
          location /
          {
-                proxy_pass http://user;
+                proxy_pass http://users;
 		include seproxy.conf;
          }
      }
