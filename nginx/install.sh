@@ -1,13 +1,14 @@
 #!/bin/bash 
 #install nginx add By geyong 1 Sep 2014
-
-#1.add nginx user
-groupadd -r nginx
-useradd -r -g nginx -s /bin/false -M nginx
-#2.configure
-NGINX_USER='nginx'
-NGINX_GROUP='nginx'
+NGINX_USER='senginx'
+NGINX_GROUP='senginx'
 INSTALL_PATH='/usr/local/nginx'
+#1.add nginx user
+groupadd -r $NGINX_GROUP
+useradd -r -g $NGINX_GROUP -s /bin/false -M $NGINX_USER
+#2.configure
+
+
 #3.install dependences
 yum -y install gcc gcc-c++ autoconf automake wget
 #gzip needs zlib  rewrite needs pcre ssl needs openssl
