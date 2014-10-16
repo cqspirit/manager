@@ -310,15 +310,6 @@ http {
    }
    server {
         listen          80;
-        server_name     live.nextcenter.org;
-        location /
-        {
-                proxy_pass http://nus;
-                include seproxy.conf;
-        }
-   }
-   server {
-        listen          80;
         server_name     future.6estates.com;
         location /
         {
