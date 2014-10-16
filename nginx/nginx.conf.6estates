@@ -61,15 +61,7 @@ http {
         ip_hash;
         server   172.18.109.32:8080  weight=1 max_fails=2 fail_timeout=30s;
     }
-    upstream  nextcenter {
-        ip_hash;
-        server   137.132.145.151:90  weight=1 max_fails=2 fail_timeout=30s;
-    }
-    upstream  nus {
-        ip_hash;
-        server   172.18.109.37:8083  weight=1 max_fails=2 fail_timeout=30s;
-    }
-	upstream  deeplearn {
+    upstream  deeplearn {
         ip_hash;
         server   172.18.109.32:8083  weight=1 max_fails=2 fail_timeout=30s;
     }
@@ -118,7 +110,7 @@ http {
         server   172.18.109.57:80    weight=1 max_fails=2 fail_timeout=30s;
         server   172.18.109.59:80   weight=1 max_fails=2 fail_timeout=30s;
     }
-    upstream  user {
+    upstream  users {
         ip_hash;
         server   172.18.109.70:8080  weight=1 max_fails=2 fail_timeout=30s;
     }
@@ -126,10 +118,6 @@ http {
         ip_hash;
         server   172.18.109.51:53  weight=1 max_fails=2 fail_timeout=30s;
     }
-   upstream  users {
-        ip_hash;
-        server   172.29.34.116:8081  weight=1 max_fails=2 fail_timeout=30s;
-   }
    upstream  hotsenze {
          ip_hash;
          server   172.18.109.70:8081  weight=1 max_fails=2 fail_timeout=30s;
@@ -149,6 +137,10 @@ http {
    upstream  dev {
          ip_hash;
          server   172.18.109.104:80  weight=1 max_fails=2 fail_timeout=30s;
+   }
+   upstream  6estates {
+         ip_hash;
+         server   172.18.109.51:80  weight=1 max_fails=2 fail_timeout=30s;
    }
    upstream  crawler {
         ip_hash;
@@ -170,8 +162,7 @@ http {
     root  /usr/local/nginx/html/6estates;  
     location /
     {
-        root   /usr/local/nginx/html/6estates;
-        index  index.html index.htm;
+      	proxy_pass http://future;
     } 
    
     location /futuresenze/
