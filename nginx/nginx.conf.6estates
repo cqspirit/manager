@@ -13,21 +13,15 @@ events {
 http {
 	include       mime.types;
 	default_type  application/octet-stream;
-
 #	charset  utf-8;
-      
   	server_names_hash_bucket_size 128;
   	client_header_buffer_size 32k;
   	large_client_header_buffers 4 32k;
   	client_max_body_size 300m;
-      
   	sendfile on;
  # 	tcp_nopush     on;
-
   	keepalive_timeout 60;
-
   	tcp_nodelay on;
-
   	client_body_buffer_size  512k;
   	proxy_connect_timeout    600;
   	proxy_read_timeout       600;
@@ -36,7 +30,6 @@ http {
   	proxy_buffers            4 64k;
   	proxy_busy_buffers_size 128k;
   	proxy_temp_file_write_size 128k;
-
   	gzip on;
   	gzip_min_length  1k;
   	gzip_buffers     4 16k;
@@ -44,11 +37,9 @@ http {
   	gzip_comp_level 2;
   	gzip_types       text/plain application/x-javascript text/css application/xml;
   	gzip_vary on;
-
         underscores_in_headers on;
   	#proxy_temp_path   /usr/local/nginx/proxy_temp_dir;
   	#proxy_cache_path  /usr/local/nginx/proxy_cache_dir  levels=1:2   keys_zone=cache_one:200m inactive=1d max_size=30g;
-    	
 	#request limit
 	limit_req_zone $binary_remote_addr zone=allips:10m rate=50r/s; 
     #map $http_upgrade $connection_upgrade {
@@ -159,47 +150,25 @@ http {
     listen       80;
     server_name  6estates.com www.6estates.com;
     index index.html index.htm;
-    root  /usr/local/nginx/html/6estates;  
     location /
     {
-      	proxy_pass http://future;
+      	proxy_pass http://6estates;
+      	include seproxy.conf;
     } 
    
     location /futuresenze/
     {
-         #proxy_next_upstream http_502 http_404 http_504 error timeout invalid_header;
-         #proxy_cache cache_one;
-         #proxy_cache_valid  200 304 12h;
-         #proxy_cache_key $host$uri$is_args$args;
          proxy_pass http://future;
-         proxy_set_header Host  $host;
-         proxy_set_header X-Forwarded-For  $remote_addr;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
-         #expires      1d;
+         include seproxy.conf;
     }
     location /next-api-web-bak/
     {
-         proxy_set_header        Host $host;
-         proxy_set_header        X-Forwarded-For  $remote_addr;
          proxy_pass http://next-api/;
-         proxy_http_version 1.1;
-         #proxy_set_header Upgrade $http_upgrade;
-         #proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
     location /next-api-web/ {
          proxy_pass      http://172.18.109.57:8083/;
-         proxy_redirect  off;
-         proxy_set_header        Host    $host;
-         proxy_set_header        X-Read-IP       $remote_addr;
-         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
- 
-         #proxy_set_header        Host $host;
-         #proxy_set_header        X-Forwarded-For  $remote_addr;
-         #proxy_pass http://172.18.109.57:8083/next-api-web/;
-         #proxy_pass    http://172.18.109.57:8083/next-api-web/;
-         #proxy_redirect default ;
+         include seproxy.conf;
     }
     #location /livesenze-new/
     #{
@@ -212,55 +181,41 @@ http {
     location /hotsenze/
     {
          proxy_pass http://hotsenze;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
 
 
     location /report/
     {
          proxy_pass http://report;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
 
     location /explore/
     {
          proxy_pass http://explore;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
     location /hotsenze-new/
     {
          proxy_pass http://hotsenze-new;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
 
     location /reviewsenze/
     {
          proxy_pass http://review;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
     location /mediasenze/
     {
          proxy_pass http://media;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
     location /securitysenze/
     {
          proxy_pass http://security;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
     location /livesenze/
     {
@@ -269,33 +224,24 @@ http {
          #proxy_cache_valid  200 304 12h;
          #proxy_cache_key $host$uri$is_args$args;
          proxy_set_header Host  $host;
-         proxy_set_header X-Forwarded-For  $remote_addr;
          proxy_pass http://live;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
          #expires      1d;
     }
     location /users/
     {
          proxy_pass http://user;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
     location /admin/
     {
          proxy_pass http://admin;
-         proxy_http_version 1.1;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "Upgrade";
+         include seproxy.conf;
     }
     location /people/
     {
           proxy_pass http://people;
-          proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection "Upgrade";
+          include seproxy.conf;
      }
     #location /admin-old/
     #{
@@ -350,33 +296,12 @@ http {
         }
    }
    server {
-          listen          6888;
-          server_name     mvn-repos;
-          location / {
-            proxy_set_header        Host $host;
-            proxy_set_header        X-Forwarded-For  $remote_addr;
-            proxy_pass  http://mvn-repos;
-         }
-    }
-    server {           
- 	   listen          6886;
-           server_name     next-api-web;
-           location / {
-             proxy_set_header        Host $host;
-             proxy_set_header        X-Forwarded-For  $remote_addr;
-             proxy_pass  http://172.18.109.57:8083/next-api-web/;
-          }
-    }
-   server {
         listen          80;
         server_name     live.6estates.com;
 	location /
     	{
          	proxy_pass http://live;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-         	proxy_http_version 1.1;
-         	proxy_set_header Upgrade $http_upgrade;
-         	proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
     	}
    }
    server {
@@ -385,10 +310,7 @@ http {
         location /
         {
                 proxy_pass http://nus;
-                proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+                include seproxy.conf;
         }
    }
    server {
@@ -397,10 +319,7 @@ http {
         location /
         {
                 proxy_pass http://future;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
         }
    }
    server {
@@ -409,10 +328,7 @@ http {
         location /
         {
                 proxy_pass http://security;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
 		limit_req zone=allips burst=5 nodelay;
         }
    }
@@ -422,10 +338,7 @@ http {
         location /
         {
                 proxy_pass http://media;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
         }
    }
    server {
@@ -434,10 +347,7 @@ http {
         location /
         {
                 proxy_pass http://review;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
         }
    }
    server {
@@ -446,10 +356,7 @@ http {
         location /
         {
                 proxy_pass http://report;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
         }
    }
    server{
@@ -458,10 +365,7 @@ http {
         location /
         {
                 proxy_pass http://deeplearn;
-                proxy_set_header X-Forwarded-For $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+                include seproxy.conf;
         }
     }
     server{
@@ -470,10 +374,7 @@ http {
         location /
         {
                 proxy_pass http://deeplearn-pic;
-                proxy_set_header X-Forwarded-For $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+                include seproxy.conf;
         }
     }
    server {
@@ -482,10 +383,7 @@ http {
         location /
         {
                 proxy_pass http://admin;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
         }
    }
    server {
@@ -493,11 +391,8 @@ http {
          server_name     explore.6estates.com;
          location /
          {
-                 proxy_pass http://explore;
-		 proxy_set_header X-Forwarded-For  $remote_addr;
-                 proxy_http_version 1.1;
-                 proxy_set_header Upgrade $http_upgrade;
-                 proxy_set_header Connection "Upgrade";
+                proxy_pass http://explore;
+		include seproxy.conf;
          }
     } 
    server {
@@ -506,10 +401,7 @@ http {
          location /
          {
                  proxy_pass http://people;
-		 proxy_set_header X-Forwarded-For  $remote_addr;
-                 proxy_http_version 1.1;
-                 proxy_set_header Upgrade $http_upgrade;
-                 proxy_set_header Connection "Upgrade";
+		 include seproxy.conf;
          }
     }
     server {
@@ -518,10 +410,7 @@ http {
          location /
          {
                 proxy_pass http://user;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
          }
      }
      server {
@@ -529,11 +418,8 @@ http {
          server_name     api.6estates.com;
          location /
          {
-               proxy_pass http://next-api;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-               proxy_http_version 1.1;
-               proxy_set_header Upgrade $http_upgrade;
-               proxy_set_header Connection "Upgrade";
+               	proxy_pass http://next-api;
+		include seproxy.conf;
          }
      }
      server {
@@ -542,10 +428,7 @@ http {
           location /
           {
                 proxy_pass http://tv;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
           }
       }
      server {
@@ -554,10 +437,7 @@ http {
           location /
           {
                 proxy_pass http://crawler;
-		proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+		include seproxy.conf;
           }
       }
       server {
@@ -566,10 +446,7 @@ http {
           location /
           {
                 proxy_pass http://mvn-repos;
-                proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+                include seproxy.conf;
           }
       }
       server {
@@ -578,10 +455,7 @@ http {
           location /
           {
                 proxy_pass http://nextcenter;
-                proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+               	include seproxy.conf;
           }
       }
      server {
@@ -589,20 +463,16 @@ http {
           server_name     dns.6estates.com;
           location /
           {
-                proxy_pass http://dnsserver;
-                proxy_set_header X-Forwarded-For  $remote_addr;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection "Upgrade";
+               proxy_pass http://dnsserver;
+               include seproxy.conf;
           }
       }
       server {
           listen          80;
           server_name     dev.6estates.com;
           location / {
-            proxy_set_header        Host $host;
-            proxy_set_header        X-Forwarded-For  $remote_addr;
-            proxy_pass  http://dev;
+           	proxy_pass  http://dev;
+            	include seproxy.conf;
          }
      }
 }
