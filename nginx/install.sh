@@ -6,14 +6,11 @@ INSTALL_PATH='/usr/local/nginx'
 #1.add nginx user
 groupadd -r $NGINX_GROUP
 useradd -r -g $NGINX_GROUP -s /bin/false -M $NGINX_USER
-#2.configure
-
-
-#3.install dependences
+#2.install dependences
 yum -y install gcc gcc-c++ autoconf automake wget
 #gzip needs zlib  rewrite needs pcre ssl needs openssl
 yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel libevent
-#get latest nginx version
+#3.get latest nginx version and install
 mkdir -p /opt/soft
 cd /opt/soft
 wget http://nginx.org/download/nginx-1.6.1.tar.gz
