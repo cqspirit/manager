@@ -444,15 +444,6 @@ http {
                 include seproxy.conf;
           }
       }
-      server {
-          listen          80;
-          server_name     137.132.145.151 www.nextcenter.org nextcenter.org;
-          location /
-          {
-                proxy_pass http://nextcenter;
-               	include seproxy.conf;
-          }
-      }
      server {
           listen          80;
           server_name     dns.6estates.com;
