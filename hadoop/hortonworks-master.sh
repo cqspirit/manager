@@ -7,6 +7,8 @@ yum install -y openssl-devel openssh-clients rsync lrzsz vim wget  curl
 #3.enlarge 打开文件句柄数
 echo '*   soft    nofile  40000
 *  hard    nofile  40000'>>/etc/security/limits.conf
+ulimit -Sn
+ulimit -Hn
 #4.disable selinux
 sed -i 's:SELINUX=enforcing:SELINUX=disabled:g'  /etc/selinux/config
 setenforce 0
