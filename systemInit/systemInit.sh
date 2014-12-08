@@ -46,8 +46,8 @@ yum -y erase sssd
 authconfig \
 --enableldap \
 --enableldapauth \
---ldapserver='ldap://172.29.34.96' \
---ldapbasedn='dc=next,dc=com' \
+--ldapserver='ldap://ldap.6estates.com' \
+--ldapbasedn='dc=ldap,dc=6estates,dc=com' \
 --enablemkhomedir \
 --enableshadow \
 --enablelocauthorize \
