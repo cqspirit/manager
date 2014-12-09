@@ -1,6 +1,7 @@
 #!/bin/bash
 yum install -y git make autoconf automake wget pcre pcre-devel zlib zlib-devel openssl openssl-devel mod-perl-devel gcc gcc-++
 mkdir -p /opt/soft
+cd /opt/soft/
 #FastDFS Lib Install
 git clone git://github.com/happyfish100/libfastcommon.git
 cd libfastcommon/
