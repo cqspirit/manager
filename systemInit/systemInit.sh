@@ -54,6 +54,24 @@ authconfig \
 --passalgo=sha256 \
 --update
 
+echo '/home /etc/auto.nfs'>> /etc/auto.master
+echo '*       -rw,soft,intr      ldap.6estates.com:/home/&' > /etc/auto.nfs
+service rpcbind stop
+service rpcidmapd stop
+service nfslock stop
+service nfs stop
+service autofs stop
+service rpcbind start 
+service rpcidmapd start 
+service nfslock start
+service nfs start
+service autofs start
+chkconfig rpcbind on
+chkconfig rpcidmapd on
+chkconfig nfslock on
+chkconfig nfs on
+chkconfig autofs on
+
 cp /etc/nsswitch.conf /etc/nsswitch.conf.bak
 sed -e 's:files dns:files ldap dns:g' /etc/nsswitch.conf
 sed -i -e 's:files dns:files ldap dns:g' /etc/nsswitch.conf
