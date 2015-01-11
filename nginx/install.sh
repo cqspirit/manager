@@ -13,9 +13,9 @@ yum -y install zlib zlib-devel openssl openssl-devel pcre pcre-devel libevent
 #3.get latest nginx version and install
 mkdir -p /opt/soft
 cd /opt/soft
-wget http://nginx.org/download/nginx-1.6.1.tar.gz
-tar zxvf nginx-1.6.1.tar.gz
-cd nginx-1.6.1
+wget http://nginx.org/download/nginx-1.6.2.tar.gz
+tar zxvf nginx-1.6.2.tar.gz
+cd nginx-1.6.2
 ./configure --prefix=$INSTALL_PATH  --user=$NGINX_USER  --group=$NGINX_GROUP
 make
 make install
