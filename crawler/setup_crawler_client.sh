@@ -19,7 +19,8 @@ make && make install
 
 # Setup Setuptools
 cd /tmp
-wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz -o setuptools-1.4.2.tar.gz
+wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz 
+#-o setuptools-1.4.2.tar.gz
 tar -xvf setuptools-1.4.2.tar.gz
 cd setuptools-1.4.2
 python setup.py install
