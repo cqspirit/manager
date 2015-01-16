@@ -9,7 +9,8 @@ yum groupinstall -y development
 yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel wget
 yum install xz-libs -y
 
-wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz -o Python-2.7.6.tar.xz
+wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz 
+#-o Python-2.7.6.tar.xz
 xz -d Python-2.7.6.tar.xz
 tar -xvf Python-2.7.6.tar
 cd Python-2.7.6
